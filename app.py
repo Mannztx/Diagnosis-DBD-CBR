@@ -276,20 +276,23 @@ st.markdown(
 
     /* ================= CARD CONTAINER STREAMLIT ================= */
     div[data-testid="stVerticalBlockBorderWrapper"],
-    div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand),
-    div[data-testid="stLayoutWrapper"] > div[data-testid="stVerticalBlock"][style*="border"] {
+    div[data-testid="stVerticalBlock"][data-st-container-border="true"] {
         background-color: var(--card-bg) !important;
-        border: 1px solid rgba(226, 232, 240, 0.75) !important;
+        border: 1px solid var(--border-subtle) !important;
         border-radius: 1.35rem !important;
         padding: 1.35rem 1.5rem !important;
         box-shadow: 0 4px 20px -6px rgba(15, 23, 42, 0.05) !important;
         transition: box-shadow 0.25s ease, border-color 0.25s ease !important;
     }
 
-    /* Hilangkan border ganda bawaan Emotion CSS Streamlit versi terbaru di dalam container */
-    div[data-testid="stVerticalBlockBorderWrapper"] > div[data-testid="stVerticalBlock"] {
+    /* Bersihkan border/kotak bawaan pada blok di dalam card agar tidak membungkus icon/teks */
+    div[data-testid="stVerticalBlockBorderWrapper"] > div,
+    div[data-testid="stVerticalBlockBorderWrapper"] > div > div[data-testid="stVerticalBlock"],
+    div[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stColumn"] > div[data-testid="stVerticalBlock"],
+    div[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stElementContainer"] {
         border: none !important;
         box-shadow: none !important;
+        background: transparent !important;
         padding: 0 !important;
     }
 
@@ -303,6 +306,9 @@ st.markdown(
         gap: 0.65rem;
         min-height: 36px;
         letter-spacing: -0.01em;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
     }
     .nav-logo-badge {
         display: inline-flex;
@@ -318,8 +324,7 @@ st.markdown(
         box-shadow: 0 4px 10px -2px rgba(27, 110, 245, 0.4);
     }
 
-    div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div.stButton > button,
-    div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand) div.stButton > button {
+    div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div.stButton > button {
         height: 36px !important;
         min-height: 36px !important;
         max-height: 36px !important;
@@ -628,7 +633,6 @@ st.markdown(
         box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.1);
     }
 
-    /* Sejajarkan tombol Tampilkan/Sembunyikan Profil mentok kanan lurus dengan card profil */
     div[data-testid="stHorizontalBlock"]:has(.creator-header-anchor) {
         gap: 0 !important;
         justify-content: space-between !important;
@@ -804,7 +808,6 @@ st.markdown(
         box-shadow: 0 8px 18px -8px rgba(29, 78, 216, 0.22) !important;
     }
 
-    /* Tombol CTA Mulai Diagnosis (Sedikit digeser ke kanan) */
     div[data-testid="stHorizontalBlock"]:has(.cta-center-anchor) {
         display: flex !important;
         justify-content: center !important;
@@ -1003,32 +1006,25 @@ st.markdown(
         }
 
         div[data-testid="stVerticalBlockBorderWrapper"],
-        div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand),
-        div[data-testid="stLayoutWrapper"] > div[data-testid="stVerticalBlock"][style*="border"] {
+        div[data-testid="stVerticalBlock"][data-st-container-border="true"] {
             padding: 1rem 1rem !important;
             border-radius: 1.1rem !important;
         }
 
-        /* Navbar Mobile: tombol Beranda & Diagnosis tetap sejajar berdampingan 50%-50% */
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"],
-        div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand) div[data-testid="stHorizontalBlock"] {
+        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] {
             flex-wrap: wrap !important;
             gap: 0.5rem !important;
         }
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:first-child,
-        div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand) div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:first-child {
+        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:first-child {
             width: 100% !important;
             flex: 1 1 100% !important;
             margin-bottom: 0.25rem !important;
         }
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(2),
-        div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand) div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(2) {
+        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(2) {
             display: none !important;
         }
         div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(3),
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(4),
-        div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand) div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(3),
-        div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand) div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(4) {
+        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(4) {
             width: calc(50% - 0.25rem) !important;
             flex: 1 1 calc(50% - 0.25rem) !important;
         }
@@ -1040,7 +1036,6 @@ st.markdown(
             display: none;
         }
 
-        /* Hero Banner Mobile */
         .hero-banner {
             padding: 1.65rem 1.25rem;
             border-radius: 1.2rem;
@@ -1062,13 +1057,11 @@ st.markdown(
             padding: 0.32rem 0.65rem;
         }
 
-        /* How Card Mobile */
         .how-card {
             padding: 1.1rem;
             margin-bottom: 0.6rem;
         }
 
-        /* CTA Center di Mobile */
         div[data-testid="stHorizontalBlock"]:has(.cta-center-anchor) {
             padding-left: 0 !important;
         }
@@ -1076,12 +1069,10 @@ st.markdown(
             width: 100% !important;
         }
 
-        /* Tombol Profil di Mobile */
         div[data-testid="stHorizontalBlock"]:has(.creator-header-anchor) > div[data-testid="stColumn"]:last-child div.stButton {
             width: 100% !important;
         }
 
-        /* Stepper Mobile */
         .stepper-bar {
             padding: 0.75rem 0.95rem;
             gap: 0.45rem;
@@ -1093,7 +1084,6 @@ st.markdown(
             padding: 0.32rem 0.75rem;
         }
 
-        /* Checkbox Gejala Mobile: 2 kolom rapi agar tidak terlalu panjang */
         div[data-testid="stHorizontalBlock"]:has(div[data-testid="stCheckbox"]) {
             flex-wrap: wrap !important;
             gap: 0.5rem !important;
@@ -1110,7 +1100,6 @@ st.markdown(
             font-size: 0.78rem !important;
         }
 
-        /* Result Banner Mobile */
         .result-banner {
             padding: 1.35rem 1.15rem;
         }
@@ -1164,7 +1153,6 @@ st.write("")
 # MENU 1: BERANDA
 # ==============================================================================
 if st.session_state.active_menu == "Beranda":
-    # 1. Card Judul & Deskripsi Sistem
     st.markdown(
         """
         <div class="hero-banner">
@@ -1189,7 +1177,6 @@ if st.session_state.active_menu == "Beranda":
         unsafe_allow_html=True,
     )
 
-    # 2. Card Cara Kerja Sistem
     with st.container(border=True):
         st.markdown("### Cara Kerja Sistem (Case-Based Reasoning)")
         st.caption("Alur pemrosesan diagnosis dari input pasien hingga penentuan tingkat keparahan DBD:")
@@ -1257,7 +1244,6 @@ if st.session_state.active_menu == "Beranda":
 
     st.write("")
 
-    # 3. Card Identitas Pembuat Sistem (Show / Hide)
     with st.container(border=True):
         col_cr_title, col_cr_btn = st.columns([3.5, 1.3], vertical_alignment="center")
         with col_cr_title:
@@ -1269,7 +1255,6 @@ if st.session_state.active_menu == "Beranda":
             st.button(btn_label, type="secondary", on_click=toggle_creator)
 
         if st.session_state.show_creator:
-            # SILAKAN SESUAIKAN DATA DIRI ANDA DI BAWAH INI
             st.markdown(
                 """
                 <div class="creator-card">
@@ -1298,7 +1283,6 @@ if st.session_state.active_menu == "Beranda":
 
     st.write("")
 
-    # 4. Card Disclaimer Medis
     st.markdown(
         """
         <div class="disclaimer-box">
@@ -1316,7 +1300,6 @@ if st.session_state.active_menu == "Beranda":
 # MENU 2: DIAGNOSIS
 # ==============================================================================
 elif st.session_state.active_menu == "Diagnosis":
-    # Stepper Indicator
     if st.session_state.step == 1:
         st.markdown(
             """
@@ -1340,7 +1323,6 @@ elif st.session_state.active_menu == "Diagnosis":
             unsafe_allow_html=True,
         )
 
-    # ---------------- LANGKAH 1: INPUT IDENTITAS PASIEN ----------------
     if st.session_state.step == 1:
         with st.container(border=True):
             st.markdown("### Form Identitas Pasien")
@@ -1397,11 +1379,9 @@ elif st.session_state.active_menu == "Diagnosis":
                     st.session_state.step = 2
                     st.rerun()
 
-    # ---------------- LANGKAH 2: INPUT GEJALA & HASIL DIAGNOSIS ----------------
     elif st.session_state.step == 2:
         p = st.session_state.pasien
 
-        # Ringkasan Identitas Pasien Sejajar dengan Tombol Ubah Identitas
         col_p_info, col_p_btn = st.columns([4.2, 1.1], vertical_alignment="center")
         with col_p_info:
             st.markdown(
@@ -1425,7 +1405,6 @@ elif st.session_state.active_menu == "Diagnosis":
 
         st.write("")
 
-        # Form Input Gejala
         with st.container(border=True):
             selected_gejala_now = [
                 g["id"] for g in GEJALA if st.session_state.get(f"chk_{g['id']}", False)
@@ -1461,7 +1440,6 @@ elif st.session_state.active_menu == "Diagnosis":
             with btn_col3:
                 st.button("✚ Pasien Baru", type="secondary", on_click=reset_semua)
 
-        # ================= HASIL DIAGNOSIS =================
         if st.session_state.diagnosed_gejala is not None:
             selected_gejala = st.session_state.diagnosed_gejala
 
