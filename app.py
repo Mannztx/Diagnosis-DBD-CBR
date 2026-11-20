@@ -1261,19 +1261,19 @@ if st.session_state.active_menu == "Beranda":
                     <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1.1rem;">
                         <div>
                             <div style="font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#64748b;">Nama Lengkap</div>
-                            <div style="font-size:1rem; font-weight:700; color:#0f172a; margin-top:0.2rem;">Nama Lengkap Anda</div>
+                            <div style="font-size:1rem; font-weight:700; color:#0f172a; margin-top:0.2rem;">Firman Ardiansyah</div>
                         </div>
                         <div>
-                            <div style="font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#64748b;">NIM / Nomor Induk</div>
-                            <div style="font-size:1rem; font-weight:700; color:#0f172a; margin-top:0.2rem;">21241010XXXX</div>
+                            <div style="font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#64748b;">NIM / Nomor Induk Mahasiswa</div>
+                            <div style="font-size:1rem; font-weight:700; color:#0f172a; margin-top:0.2rem;">362458302101</div>
                         </div>
                         <div>
                             <div style="font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#64748b;">Program Studi</div>
-                            <div style="font-size:0.95rem; font-weight:600; color:#1e293b; margin-top:0.2rem;">Informatika / Sistem Informasi</div>
+                            <div style="font-size:0.95rem; font-weight:600; color:#1e293b; margin-top:0.2rem;">D4 Teknologi Rekayasa Perangkat Lunak</div>
                         </div>
                         <div>
                             <div style="font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#64748b;">Mata Kuliah / Proyek</div>
-                            <div style="font-size:0.95rem; font-weight:600; color:#1e293b; margin-top:0.2rem;">Sistem Pakar / Kecerdasan Buatan</div>
+                            <div style="font-size:0.95rem; font-weight:600; color:#1e293b; margin-top:0.2rem;">Sistem Pendukung Keputusan</div>
                         </div>
                     </div>
                 </div>
