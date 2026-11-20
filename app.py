@@ -319,7 +319,7 @@ st.markdown(
         box-shadow: 0 4px 10px -2px rgba(27, 110, 245, 0.4);
     }
 
-    div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div.stButton > button {
+    div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) div.stButton > button {
         height: 36px !important;
         min-height: 36px !important;
         max-height: 36px !important;
@@ -1001,38 +1001,54 @@ st.markdown(
         }
 
         div[data-testid="stVerticalBlockBorderWrapper"] {
-            padding: 1rem 1rem !important;
+            padding: 0.85rem 1rem !important;
             border-radius: 1.1rem !important;
         }
 
-        /* Navbar Mobile: hanya icon di kiri + tombol Beranda & Diagnosis di kanan sejajar */
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] {
+        /* Navbar Mobile: icon di kiri, tombol Beranda & Diagnosis sejajar di kanan */
+        div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) {
             display: flex !important;
             flex-direction: row !important;
+            flex-wrap: nowrap !important;
             align-items: center !important;
             justify-content: space-between !important;
             gap: 0.45rem !important;
+            width: 100% !important;
         }
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:first-child {
+        div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) > div[data-testid="stColumn"] {
             flex: 0 0 auto !important;
             width: auto !important;
+            min-width: 0 !important;
         }
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(2) {
+        div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) > div[data-testid="stColumn"]:nth-child(2) {
             display: none !important;
         }
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(3),
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(4) {
-            flex: 0 0 auto !important;
+        div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) > div[data-testid="stColumn"]:nth-child(3) {
+            margin-left: auto !important;
+        }
+        div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) div.stButton {
             width: auto !important;
         }
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div.stButton > button {
-            padding: 0 0.78rem !important;
-            font-size: 0.82rem !important;
+        div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) div.stButton > button {
+            width: auto !important;
+            min-width: 0 !important;
+            height: 34px !important;
+            min-height: 34px !important;
+            max-height: 34px !important;
+            padding: 0 0.72rem !important;
+            font-size: 0.8rem !important;
+            border-radius: 0.65rem !important;
         }
 
         .nav-brand {
             font-size: 0.95rem;
             gap: 0;
+            min-height: 34px;
+        }
+        .nav-logo-badge {
+            width: 34px;
+            height: 34px;
+            font-size: 0.92rem;
         }
         .nav-brand-text {
             display: none !important;
@@ -1135,6 +1151,7 @@ with st.container(border=True):
     )
     with nav_brand:
         st.markdown(
+            '<span class="top-navbar-anchor"></span>'
             '<div class="nav-brand">'
             '<span class="nav-logo-badge">✚</span>'
             '<span class="nav-brand-text">Sistem Pakar DBD <span style="color:#64748b; font-weight:500;">• CBR Cosine Similarity</span></span>'
