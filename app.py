@@ -136,9 +136,6 @@ def norm(vector):
 if "active_menu" not in st.session_state:
     st.session_state.active_menu = "Beranda"
 
-if "mobile_menu_open" not in st.session_state:
-    st.session_state.mobile_menu_open = False
-
 if "show_creator" not in st.session_state:
     st.session_state.show_creator = False
 
@@ -165,11 +162,6 @@ if "trigger_loading" not in st.session_state:
 
 def set_menu(menu_name):
     st.session_state.active_menu = menu_name
-    st.session_state.mobile_menu_open = False
-
-
-def toggle_mobile_menu():
-    st.session_state.mobile_menu_open = not st.session_state.mobile_menu_open
 
 
 def toggle_creator():
@@ -338,14 +330,6 @@ st.markdown(
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
-    }
-
-    /* Tampilan Desktop (>= 769px): sembunyikan trigger & drawer hamburger */
-    @media (min-width: 769px) {
-        div[data-testid="stHorizontalBlock"]:has(.mobile-hamburger-anchor),
-        div[data-testid="stVerticalBlockBorderWrapper"]:has(.mobile-drawer-anchor) {
-            display: none !important;
-        }
     }
 
     /* ================= FIELD INPUT (100% IDENTIK & SINGLE BORDER) ================= */
@@ -1021,61 +1005,40 @@ st.markdown(
             border-radius: 1.1rem !important;
         }
 
-        /* Sembunyikan tombol desktop di mobile */
-        div[data-testid="stHorizontalBlock"]:has(.desktop-nav-anchor) {
-            display: none !important;
-        }
-
-        /* Baris header mobile: brand di kiri + tombol hamburger ☰ di kanan sejajar */
-        div[data-testid="stHorizontalBlock"]:has(.mobile-hamburger-anchor) {
+        /* Navbar Mobile: hanya icon di kiri + tombol Beranda & Diagnosis di kanan sejajar */
+        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] {
             display: flex !important;
             flex-direction: row !important;
             align-items: center !important;
             justify-content: space-between !important;
-            gap: 0.5rem !important;
+            gap: 0.45rem !important;
         }
-        div[data-testid="stHorizontalBlock"]:has(.mobile-hamburger-anchor) > div[data-testid="stColumn"]:first-child {
-            flex: 1 1 auto !important;
+        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:first-child {
+            flex: 0 0 auto !important;
             width: auto !important;
         }
-        div[data-testid="stHorizontalBlock"]:has(.mobile-hamburger-anchor) > div[data-testid="stColumn"]:last-child {
-            flex: 0 0 42px !important;
-            width: 42px !important;
+        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(2) {
+            display: none !important;
         }
-        div[data-testid="stHorizontalBlock"]:has(.mobile-hamburger-anchor) div.stButton > button {
-            width: 42px !important;
-            min-width: 42px !important;
-            height: 40px !important;
-            min-height: 40px !important;
-            max-height: 40px !important;
-            padding: 0 !important;
-            font-size: 1.15rem !important;
-            border-radius: 0.7rem !important;
+        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(3),
+        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(4) {
+            flex: 0 0 auto !important;
+            width: auto !important;
         }
-
-        /* Drawer dropdown mobile */
-        div[data-testid="stVerticalBlockBorderWrapper"]:has(.mobile-drawer-anchor) {
-            margin-top: 0.5rem !important;
-            padding: 0.75rem !important;
-            border-radius: 1rem !important;
-            animation: slideDown 0.22s ease !important;
-        }
-        div[data-testid="stVerticalBlockBorderWrapper"]:has(.mobile-drawer-anchor) div.stButton > button {
-            height: 40px !important;
-            min-height: 40px !important;
-            max-height: 40px !important;
-            margin-bottom: 0.35rem !important;
-            justify-content: flex-start !important;
-            padding: 0 0.95rem !important;
+        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div.stButton > button {
+            padding: 0 0.78rem !important;
+            font-size: 0.82rem !important;
         }
 
         .nav-brand {
             font-size: 0.95rem;
+            gap: 0;
         }
-        .nav-brand span span {
-            display: none;
+        .nav-brand-text {
+            display: none !important;
         }
 
+        /* Hero Banner Mobile */
         .hero-banner {
             padding: 1.65rem 1.25rem;
             border-radius: 1.2rem;
@@ -1097,11 +1060,13 @@ st.markdown(
             padding: 0.32rem 0.65rem;
         }
 
+        /* How Card Mobile */
         .how-card {
             padding: 1.1rem;
             margin-bottom: 0.6rem;
         }
 
+        /* CTA Center di Mobile */
         div[data-testid="stHorizontalBlock"]:has(.cta-center-anchor) {
             padding-left: 0 !important;
         }
@@ -1109,10 +1074,12 @@ st.markdown(
             width: 100% !important;
         }
 
+        /* Tombol Profil di Mobile */
         div[data-testid="stHorizontalBlock"]:has(.creator-header-anchor) > div[data-testid="stColumn"]:last-child div.stButton {
             width: 100% !important;
         }
 
+        /* Stepper Mobile */
         .stepper-bar {
             padding: 0.75rem 0.95rem;
             gap: 0.45rem;
@@ -1124,6 +1091,7 @@ st.markdown(
             padding: 0.32rem 0.75rem;
         }
 
+        /* Checkbox Gejala Mobile: 2 kolom rapi agar tidak terlalu panjang */
         div[data-testid="stHorizontalBlock"]:has(div[data-testid="stCheckbox"]) {
             flex-wrap: wrap !important;
             gap: 0.5rem !important;
@@ -1140,6 +1108,7 @@ st.markdown(
             font-size: 0.78rem !important;
         }
 
+        /* Result Banner Mobile */
         .result-banner {
             padding: 1.35rem 1.15rem;
         }
@@ -1159,71 +1128,29 @@ st.markdown(
 
 # ================= TOP NAVIGATION BAR =================
 with st.container(border=True):
-    # Baris Desktop: Brand + Tombol Beranda & Diagnosis
-    desk_brand, desk_spacer, desk_btn1, desk_btn2 = st.columns(
+    nav_brand, nav_spacer, nav_btn1, nav_btn2 = st.columns(
         [4.2, 1.0, 1.1, 1.1],
         gap="small",
         vertical_alignment="center",
     )
-    with desk_brand:
+    with nav_brand:
         st.markdown(
-            '<span class="desktop-nav-anchor"></span>'
             '<div class="nav-brand">'
             '<span class="nav-logo-badge">✚</span>'
-            '<span>Sistem Pakar DBD <span style="color:#64748b; font-weight:500;">• CBR Cosine Similarity</span></span>'
+            '<span class="nav-brand-text">Sistem Pakar DBD <span style="color:#64748b; font-weight:500;">• CBR Cosine Similarity</span></span>'
             '</div>',
             unsafe_allow_html=True,
         )
-    with desk_btn1:
+    with nav_btn1:
         st.button(
             "Beranda",
-            key="desk_nav_beranda",
             type="primary" if st.session_state.active_menu == "Beranda" else "secondary",
             on_click=set_menu,
             args=("Beranda",),
         )
-    with desk_btn2:
+    with nav_btn2:
         st.button(
             "Diagnosis",
-            key="desk_nav_diagnosis",
-            type="primary" if st.session_state.active_menu == "Diagnosis" else "secondary",
-            on_click=set_menu,
-            args=("Diagnosis",),
-        )
-
-    # Baris Mobile: Brand + Tombol Hamburger (☰ / ✕)
-    mob_brand, mob_btn = st.columns([6.0, 1.0], gap="small", vertical_alignment="center")
-    with mob_brand:
-        st.markdown(
-            '<span class="mobile-hamburger-anchor"></span>'
-            '<div class="nav-brand">'
-            '<span class="nav-logo-badge">✚</span>'
-            '<span>Sistem Pakar DBD</span>'
-            '</div>',
-            unsafe_allow_html=True,
-        )
-    with mob_btn:
-        st.button(
-            "✕" if st.session_state.mobile_menu_open else "☰",
-            key="mob_hamburger_btn",
-            type="secondary",
-            on_click=toggle_mobile_menu,
-        )
-
-# Panel Dropdown Menu Mobile saat tombol ☰ dibuka
-if st.session_state.mobile_menu_open:
-    with st.container(border=True):
-        st.markdown('<span class="mobile-drawer-anchor"></span>', unsafe_allow_html=True)
-        st.button(
-            "🏠 Beranda",
-            key="mob_nav_beranda",
-            type="primary" if st.session_state.active_menu == "Beranda" else "secondary",
-            on_click=set_menu,
-            args=("Beranda",),
-        )
-        st.button(
-            "🩺 Diagnosis",
-            key="mob_nav_diagnosis",
             type="primary" if st.session_state.active_menu == "Diagnosis" else "secondary",
             on_click=set_menu,
             args=("Diagnosis",),
