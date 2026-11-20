@@ -1192,7 +1192,7 @@ if st.session_state.active_menu == "Beranda":
                     </h4>
                     <p style="margin:0; font-size:0.87rem; line-height:1.6; color:#475569;">
                         Pengguna mengisi identitas pasien lalu memilih gejala yang dialami dari 14 daftar gejala (G1–G14),
-                        yang direpresentasikan menjadi vektor biner (<code>1</code> = dialami, <code>0</code> = tidak).
+                        yang direpresentasikan menjadi vektor biner.
                     </p>
                 </div>
                 """,
@@ -1208,7 +1208,7 @@ if st.session_state.active_menu == "Beranda":
                     </h4>
                     <p style="margin:0; font-size:0.87rem; line-height:1.6; color:#475569;">
                         Sistem menghitung tingkat kemiripan sudut antara vektor gejala pasien baru (<i>x</i>) dan setiap kasus
-                        pada basis pengetahuan (<i>y</i>) menggunakan rumus: <code>(x · y) / (||x|| × ||y||)</code>.
+                        pada basis pengetahuan (<i>y</i>).
                     </p>
                 </div>
                 """,
