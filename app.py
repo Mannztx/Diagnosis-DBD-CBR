@@ -136,6 +136,9 @@ def norm(vector):
 if "active_menu" not in st.session_state:
     st.session_state.active_menu = "Beranda"
 
+if "mobile_menu_open" not in st.session_state:
+    st.session_state.mobile_menu_open = False
+
 if "show_creator" not in st.session_state:
     st.session_state.show_creator = False
 
@@ -162,6 +165,11 @@ if "trigger_loading" not in st.session_state:
 
 def set_menu(menu_name):
     st.session_state.active_menu = menu_name
+    st.session_state.mobile_menu_open = False
+
+
+def toggle_mobile_menu():
+    st.session_state.mobile_menu_open = not st.session_state.mobile_menu_open
 
 
 def toggle_creator():
@@ -275,8 +283,7 @@ st.markdown(
     }
 
     /* ================= CARD CONTAINER STREAMLIT ================= */
-    div[data-testid="stVerticalBlockBorderWrapper"],
-    div[data-testid="stVerticalBlock"][data-st-container-border="true"] {
+    div[data-testid="stVerticalBlockBorderWrapper"] {
         background-color: var(--card-bg) !important;
         border: 1px solid var(--border-subtle) !important;
         border-radius: 1.35rem !important;
@@ -285,7 +292,6 @@ st.markdown(
         transition: box-shadow 0.25s ease, border-color 0.25s ease !important;
     }
 
-    /* Bersihkan border/kotak bawaan pada blok di dalam card agar tidak membungkus icon/teks */
     div[data-testid="stVerticalBlockBorderWrapper"] > div,
     div[data-testid="stVerticalBlockBorderWrapper"] > div > div[data-testid="stVerticalBlock"],
     div[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stColumn"] > div[data-testid="stVerticalBlock"],
@@ -296,7 +302,7 @@ st.markdown(
         padding: 0 !important;
     }
 
-    /* ================= TOP NAVIGATION BAR (SEJAJAR & RAPAT) ================= */
+    /* ================= TOP NAVIGATION BAR ================= */
     .nav-brand {
         font-size: 1.05rem;
         font-weight: 800;
@@ -306,9 +312,6 @@ st.markdown(
         gap: 0.65rem;
         min-height: 36px;
         letter-spacing: -0.01em;
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
     }
     .nav-logo-badge {
         display: inline-flex;
@@ -335,6 +338,14 @@ st.markdown(
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
+    }
+
+    /* Tampilan Desktop (>= 769px): sembunyikan trigger & drawer hamburger */
+    @media (min-width: 769px) {
+        div[data-testid="stHorizontalBlock"]:has(.mobile-hamburger-anchor),
+        div[data-testid="stVerticalBlockBorderWrapper"]:has(.mobile-drawer-anchor) {
+            display: none !important;
+        }
     }
 
     /* ================= FIELD INPUT (100% IDENTIK & SINGLE BORDER) ================= */
@@ -1005,28 +1016,57 @@ st.markdown(
             padding-bottom: 2.2rem !important;
         }
 
-        div[data-testid="stVerticalBlockBorderWrapper"],
-        div[data-testid="stVerticalBlock"][data-st-container-border="true"] {
+        div[data-testid="stVerticalBlockBorderWrapper"] {
             padding: 1rem 1rem !important;
             border-radius: 1.1rem !important;
         }
 
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] {
-            flex-wrap: wrap !important;
-            gap: 0.5rem !important;
-        }
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:first-child {
-            width: 100% !important;
-            flex: 1 1 100% !important;
-            margin-bottom: 0.25rem !important;
-        }
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(2) {
+        /* Sembunyikan tombol desktop di mobile */
+        div[data-testid="stHorizontalBlock"]:has(.desktop-nav-anchor) {
             display: none !important;
         }
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(3),
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(4) {
-            width: calc(50% - 0.25rem) !important;
-            flex: 1 1 calc(50% - 0.25rem) !important;
+
+        /* Baris header mobile: brand di kiri + tombol hamburger ☰ di kanan sejajar */
+        div[data-testid="stHorizontalBlock"]:has(.mobile-hamburger-anchor) {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 0.5rem !important;
+        }
+        div[data-testid="stHorizontalBlock"]:has(.mobile-hamburger-anchor) > div[data-testid="stColumn"]:first-child {
+            flex: 1 1 auto !important;
+            width: auto !important;
+        }
+        div[data-testid="stHorizontalBlock"]:has(.mobile-hamburger-anchor) > div[data-testid="stColumn"]:last-child {
+            flex: 0 0 42px !important;
+            width: 42px !important;
+        }
+        div[data-testid="stHorizontalBlock"]:has(.mobile-hamburger-anchor) div.stButton > button {
+            width: 42px !important;
+            min-width: 42px !important;
+            height: 40px !important;
+            min-height: 40px !important;
+            max-height: 40px !important;
+            padding: 0 !important;
+            font-size: 1.15rem !important;
+            border-radius: 0.7rem !important;
+        }
+
+        /* Drawer dropdown mobile */
+        div[data-testid="stVerticalBlockBorderWrapper"]:has(.mobile-drawer-anchor) {
+            margin-top: 0.5rem !important;
+            padding: 0.75rem !important;
+            border-radius: 1rem !important;
+            animation: slideDown 0.22s ease !important;
+        }
+        div[data-testid="stVerticalBlockBorderWrapper"]:has(.mobile-drawer-anchor) div.stButton > button {
+            height: 40px !important;
+            min-height: 40px !important;
+            max-height: 40px !important;
+            margin-bottom: 0.35rem !important;
+            justify-content: flex-start !important;
+            padding: 0 0.95rem !important;
         }
 
         .nav-brand {
@@ -1119,29 +1159,71 @@ st.markdown(
 
 # ================= TOP NAVIGATION BAR =================
 with st.container(border=True):
-    nav_brand, nav_spacer, nav_btn1, nav_btn2 = st.columns(
+    # Baris Desktop: Brand + Tombol Beranda & Diagnosis
+    desk_brand, desk_spacer, desk_btn1, desk_btn2 = st.columns(
         [4.2, 1.0, 1.1, 1.1],
         gap="small",
         vertical_alignment="center",
     )
-    with nav_brand:
+    with desk_brand:
         st.markdown(
+            '<span class="desktop-nav-anchor"></span>'
             '<div class="nav-brand">'
             '<span class="nav-logo-badge">✚</span>'
             '<span>Sistem Pakar DBD <span style="color:#64748b; font-weight:500;">• CBR Cosine Similarity</span></span>'
             '</div>',
             unsafe_allow_html=True,
         )
-    with nav_btn1:
+    with desk_btn1:
         st.button(
             "Beranda",
+            key="desk_nav_beranda",
             type="primary" if st.session_state.active_menu == "Beranda" else "secondary",
             on_click=set_menu,
             args=("Beranda",),
         )
-    with nav_btn2:
+    with desk_btn2:
         st.button(
             "Diagnosis",
+            key="desk_nav_diagnosis",
+            type="primary" if st.session_state.active_menu == "Diagnosis" else "secondary",
+            on_click=set_menu,
+            args=("Diagnosis",),
+        )
+
+    # Baris Mobile: Brand + Tombol Hamburger (☰ / ✕)
+    mob_brand, mob_btn = st.columns([6.0, 1.0], gap="small", vertical_alignment="center")
+    with mob_brand:
+        st.markdown(
+            '<span class="mobile-hamburger-anchor"></span>'
+            '<div class="nav-brand">'
+            '<span class="nav-logo-badge">✚</span>'
+            '<span>Sistem Pakar DBD</span>'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+    with mob_btn:
+        st.button(
+            "✕" if st.session_state.mobile_menu_open else "☰",
+            key="mob_hamburger_btn",
+            type="secondary",
+            on_click=toggle_mobile_menu,
+        )
+
+# Panel Dropdown Menu Mobile saat tombol ☰ dibuka
+if st.session_state.mobile_menu_open:
+    with st.container(border=True):
+        st.markdown('<span class="mobile-drawer-anchor"></span>', unsafe_allow_html=True)
+        st.button(
+            "🏠 Beranda",
+            key="mob_nav_beranda",
+            type="primary" if st.session_state.active_menu == "Beranda" else "secondary",
+            on_click=set_menu,
+            args=("Beranda",),
+        )
+        st.button(
+            "🩺 Diagnosis",
+            key="mob_nav_diagnosis",
             type="primary" if st.session_state.active_menu == "Diagnosis" else "secondary",
             on_click=set_menu,
             args=("Diagnosis",),
@@ -1192,7 +1274,7 @@ if st.session_state.active_menu == "Beranda":
                     </h4>
                     <p style="margin:0; font-size:0.87rem; line-height:1.6; color:#475569;">
                         Pengguna mengisi identitas pasien lalu memilih gejala yang dialami dari 14 daftar gejala (G1–G14),
-                        yang direpresentasikan menjadi vektor biner.
+                        yang direpresentasikan menjadi vektor biner (<code>1</code> = dialami, <code>0</code> = tidak).
                     </p>
                 </div>
                 """,
@@ -1208,7 +1290,7 @@ if st.session_state.active_menu == "Beranda":
                     </h4>
                     <p style="margin:0; font-size:0.87rem; line-height:1.6; color:#475569;">
                         Sistem menghitung tingkat kemiripan sudut antara vektor gejala pasien baru (<i>x</i>) dan setiap kasus
-                        pada basis pengetahuan (<i>y</i>).
+                        pada basis pengetahuan (<i>y</i>) menggunakan rumus: <code>(x · y) / (||x|| × ||y||)</code>.
                     </p>
                 </div>
                 """,
@@ -1261,19 +1343,19 @@ if st.session_state.active_menu == "Beranda":
                     <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1.1rem;">
                         <div>
                             <div style="font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#64748b;">Nama Lengkap</div>
-                            <div style="font-size:1rem; font-weight:700; color:#0f172a; margin-top:0.2rem;">Firman Ardiansyah</div>
+                            <div style="font-size:1rem; font-weight:700; color:#0f172a; margin-top:0.2rem;">Nama Lengkap Anda</div>
                         </div>
                         <div>
-                            <div style="font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#64748b;">NIM / Nomor Induk Mahasiswa</div>
-                            <div style="font-size:1rem; font-weight:700; color:#0f172a; margin-top:0.2rem;">362458302101</div>
+                            <div style="font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#64748b;">NIM / Nomor Induk</div>
+                            <div style="font-size:1rem; font-weight:700; color:#0f172a; margin-top:0.2rem;">21241010XXXX</div>
                         </div>
                         <div>
                             <div style="font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#64748b;">Program Studi</div>
-                            <div style="font-size:0.95rem; font-weight:600; color:#1e293b; margin-top:0.2rem;">D4 Teknologi Rekayasa Perangkat Lunak</div>
+                            <div style="font-size:0.95rem; font-weight:600; color:#1e293b; margin-top:0.2rem;">Informatika / Sistem Informasi</div>
                         </div>
                         <div>
                             <div style="font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#64748b;">Mata Kuliah / Proyek</div>
-                            <div style="font-size:0.95rem; font-weight:600; color:#1e293b; margin-top:0.2rem;">Sistem Pendukung Keputusan</div>
+                            <div style="font-size:0.95rem; font-weight:600; color:#1e293b; margin-top:0.2rem;">Sistem Pakar / Kecerdasan Buatan</div>
                         </div>
                     </div>
                 </div>
