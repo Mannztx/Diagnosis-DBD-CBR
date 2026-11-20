@@ -295,6 +295,20 @@ st.markdown(
     }
 
     /* ================= TOP NAVIGATION BAR ================= */
+    div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) {
+        align-items: center !important;
+    }
+    div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) > div[data-testid="stColumn"] {
+        display: flex !important;
+        align-items: center !important;
+    }
+    div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) div.stButton {
+        margin: 0 !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
     .nav-brand {
         font-size: 1.05rem;
         font-weight: 800;
@@ -302,7 +316,10 @@ st.markdown(
         display: flex;
         align-items: center;
         gap: 0.65rem;
-        min-height: 36px;
+        height: 36px;
+        line-height: 1;
+        margin: 0;
+        padding: 0;
         letter-spacing: -0.01em;
     }
     .nav-logo-badge {
@@ -316,6 +333,7 @@ st.markdown(
         background: linear-gradient(135deg, #1b6ef5, #0a9c8a);
         color: #ffffff;
         font-size: 1rem;
+        line-height: 1;
         box-shadow: 0 4px 10px -2px rgba(27, 110, 245, 0.4);
     }
 
@@ -323,8 +341,10 @@ st.markdown(
         height: 36px !important;
         min-height: 36px !important;
         max-height: 36px !important;
+        margin: 0 !important;
         padding: 0 1rem !important;
         font-size: 0.86rem !important;
+        line-height: 1 !important;
         border-radius: 0.7rem !important;
         white-space: nowrap !important;
         display: inline-flex !important;
@@ -1005,7 +1025,7 @@ st.markdown(
             border-radius: 1.1rem !important;
         }
 
-        /* Navbar Mobile: icon di kiri, tombol Beranda & Diagnosis sejajar di kanan */
+        /* Navbar Mobile: icon di kiri, tombol Beranda & Diagnosis sejajar ke kanan & rata tengah */
         div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) {
             display: flex !important;
             flex-direction: row !important;
@@ -1019,6 +1039,8 @@ st.markdown(
             flex: 0 0 auto !important;
             width: auto !important;
             min-width: 0 !important;
+            display: flex !important;
+            align-items: center !important;
         }
         div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) > div[data-testid="stColumn"]:nth-child(2) {
             display: none !important;
@@ -1028,6 +1050,7 @@ st.markdown(
         }
         div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) div.stButton {
             width: auto !important;
+            margin: 0 !important;
         }
         div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) div.stButton > button {
             width: auto !important;
@@ -1035,20 +1058,24 @@ st.markdown(
             height: 34px !important;
             min-height: 34px !important;
             max-height: 34px !important;
+            margin: 0 !important;
             padding: 0 0.72rem !important;
             font-size: 0.8rem !important;
+            line-height: 1 !important;
             border-radius: 0.65rem !important;
         }
 
         .nav-brand {
             font-size: 0.95rem;
             gap: 0;
-            min-height: 34px;
+            height: 34px;
+            line-height: 1;
         }
         .nav-logo-badge {
             width: 34px;
             height: 34px;
             font-size: 0.92rem;
+            line-height: 1;
         }
         .nav-brand-text {
             display: none !important;
@@ -1275,7 +1302,7 @@ if st.session_state.active_menu == "Beranda":
         with col_cr_title:
             st.markdown('<span class="creator-header-anchor"></span>', unsafe_allow_html=True)
             st.markdown("### Identitas Pembuat Sistem")
-            st.caption("Informasi pengembang aplikasi Sistem Pakar Diagnosis DBD.")
+            st.caption("Informasi pengembang Sistem Diagnosis DBD.")
         with col_cr_btn:
             btn_label = "Sembunyikan Profil ▲" if st.session_state.show_creator else "Tampilkan Profil ▼"
             st.button(btn_label, type="secondary", on_click=toggle_creator)
