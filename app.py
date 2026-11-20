@@ -275,13 +275,22 @@ st.markdown(
     }
 
     /* ================= CARD CONTAINER STREAMLIT ================= */
-    div[data-testid="stVerticalBlockBorderWrapper"] {
+    div[data-testid="stVerticalBlockBorderWrapper"],
+    div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand),
+    div[data-testid="stLayoutWrapper"] > div[data-testid="stVerticalBlock"][style*="border"] {
         background-color: var(--card-bg) !important;
-        border: 1px solid var(--border-subtle) !important;
+        border: 1px solid rgba(226, 232, 240, 0.75) !important;
         border-radius: 1.35rem !important;
         padding: 1.35rem 1.5rem !important;
         box-shadow: 0 4px 20px -6px rgba(15, 23, 42, 0.05) !important;
         transition: box-shadow 0.25s ease, border-color 0.25s ease !important;
+    }
+
+    /* Hilangkan border ganda bawaan Emotion CSS Streamlit versi terbaru di dalam container */
+    div[data-testid="stVerticalBlockBorderWrapper"] > div[data-testid="stVerticalBlock"] {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
     }
 
     /* ================= TOP NAVIGATION BAR (SEJAJAR & RAPAT) ================= */
@@ -309,7 +318,8 @@ st.markdown(
         box-shadow: 0 4px 10px -2px rgba(27, 110, 245, 0.4);
     }
 
-    div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div.stButton > button {
+    div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div.stButton > button,
+    div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand) div.stButton > button {
         height: 36px !important;
         min-height: 36px !important;
         max-height: 36px !important;
@@ -992,26 +1002,33 @@ st.markdown(
             padding-bottom: 2.2rem !important;
         }
 
-        div[data-testid="stVerticalBlockBorderWrapper"] {
+        div[data-testid="stVerticalBlockBorderWrapper"],
+        div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand),
+        div[data-testid="stLayoutWrapper"] > div[data-testid="stVerticalBlock"][style*="border"] {
             padding: 1rem 1rem !important;
             border-radius: 1.1rem !important;
         }
 
         /* Navbar Mobile: tombol Beranda & Diagnosis tetap sejajar berdampingan 50%-50% */
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] {
+        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"],
+        div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand) div[data-testid="stHorizontalBlock"] {
             flex-wrap: wrap !important;
             gap: 0.5rem !important;
         }
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:first-child {
+        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:first-child,
+        div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand) div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:first-child {
             width: 100% !important;
             flex: 1 1 100% !important;
             margin-bottom: 0.25rem !important;
         }
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(2) {
+        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(2),
+        div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand) div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(2) {
             display: none !important;
         }
         div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(3),
-        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(4) {
+        div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(4),
+        div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand) div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(3),
+        div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] .nav-brand) div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(4) {
             width: calc(50% - 0.25rem) !important;
             flex: 1 1 calc(50% - 0.25rem) !important;
         }
