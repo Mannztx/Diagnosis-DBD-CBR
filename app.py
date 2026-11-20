@@ -1025,7 +1025,7 @@ st.markdown(
             border-radius: 1.1rem !important;
         }
 
-        /* Navbar Mobile: icon di kiri, tombol Beranda & Diagnosis sejajar ke kanan & rata tengah */
+        /* Navbar Mobile: icon di kiri, tombol Beranda & Diagnosis sejajar kanan & rata tengah presisi */
         div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) {
             display: flex !important;
             flex-direction: row !important;
@@ -1034,13 +1034,33 @@ st.markdown(
             justify-content: space-between !important;
             gap: 0.45rem !important;
             width: 100% !important;
+            min-height: 34px !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
         div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) > div[data-testid="stColumn"] {
             flex: 0 0 auto !important;
             width: auto !important;
             min-width: 0 !important;
+            height: 34px !important;
+            margin: 0 !important;
+            padding: 0 !important;
             display: flex !important;
             align-items: center !important;
+        }
+        div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) > div[data-testid="stColumn"] > div,
+        div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) [data-testid="stElementContainer"],
+        div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) [data-testid="stMarkdown"],
+        div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) [data-testid="stMarkdown"] > div {
+            height: 34px !important;
+            min-height: 34px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+        }
+        .top-navbar-anchor {
+            display: none !important;
         }
         div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) > div[data-testid="stColumn"]:nth-child(2) {
             display: none !important;
@@ -1050,7 +1070,11 @@ st.markdown(
         }
         div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) div.stButton {
             width: auto !important;
+            height: 34px !important;
             margin: 0 !important;
+            padding: 0 !important;
+            display: flex !important;
+            align-items: center !important;
         }
         div[data-testid="stHorizontalBlock"]:has(.top-navbar-anchor) div.stButton > button {
             width: auto !important;
@@ -1068,14 +1092,22 @@ st.markdown(
         .nav-brand {
             font-size: 0.95rem;
             gap: 0;
+            width: 34px;
             height: 34px;
+            min-height: 34px;
             line-height: 1;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
         }
         .nav-logo-badge {
             width: 34px;
             height: 34px;
             font-size: 0.92rem;
             line-height: 1;
+            margin: 0 !important;
         }
         .nav-brand-text {
             display: none !important;
@@ -1302,7 +1334,7 @@ if st.session_state.active_menu == "Beranda":
         with col_cr_title:
             st.markdown('<span class="creator-header-anchor"></span>', unsafe_allow_html=True)
             st.markdown("### Identitas Pembuat Sistem")
-            st.caption("Informasi pengembang Sistem Diagnosis DBD.")
+            st.caption("Informasi pengembang aplikasi Sistem Pakar Diagnosis DBD.")
         with col_cr_btn:
             btn_label = "Sembunyikan Profil ▲" if st.session_state.show_creator else "Tampilkan Profil ▼"
             st.button(btn_label, type="secondary", on_click=toggle_creator)
